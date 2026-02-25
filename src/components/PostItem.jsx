@@ -22,7 +22,7 @@ export default function PostItem({ post }) {
           <span className="postCategory">{post.category || "Design"}</span>
 
           <Link className="postOpen" to={`/post/${post.id}`} title="Open">
-            ↗
+            ↗️
           </Link>
         </div>
 
