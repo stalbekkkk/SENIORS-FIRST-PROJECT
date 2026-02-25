@@ -47,8 +47,8 @@ export default function PostDetails() {
         />
       )}
 
-      <p style={{ color: "#667085", maxWidth: 900, marginTop: 12 }}>
-        {post.description}
+      <p style={{ color: "#101828", maxWidth: 900, marginTop: 12, lineHeight: 1.6 }}>
+        {post.content}
       </p>
 
       <div className="hr" />

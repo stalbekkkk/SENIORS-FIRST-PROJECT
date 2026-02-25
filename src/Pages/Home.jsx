@@ -33,10 +33,10 @@ export default function Home() {
       </div>
 
       <div className="postsGrid">
-        {posts.map((p) => (
-          <PostItem key={p.id} post={p} />
-        ))}
-      </div>
+  {posts.map((p) => (
+    <PostItem key={p.id} post={p} />
+  ))}
+</div>
     </div>
   );
 }
