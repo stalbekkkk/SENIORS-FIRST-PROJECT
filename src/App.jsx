@@ -1,23 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import CommentForm from './componients/CommentForm'
-import CommentList from './componients/CommentList'
-import PostItem from './componients/PostItem'
-import PostList from './componients/PostList'
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import PostDetails from "./Pages/PostDetails";
+import CreatePost from "./Pages/CreatePost";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
 
-  return (
-    <>
-      <CommentForm/>
-      <CommentList/>
-      <PostItem/>
-      <PostList/>
-    </>
-  )
+   
+  return(
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/create" element={<CreatePost />} />
+      <Route path="/post/:postId" element={<PostDetails />} />
+    </Routes>
+  );
 }
-
-export default App
