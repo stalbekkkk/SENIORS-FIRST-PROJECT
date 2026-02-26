@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Link } from "react-router-dom";
 
 import { db, ensureAuth } from "../FireBase/FireBase";
 import PostItem from "../components/PostItem";
+import HeroHeader from "../components/HeroHeader";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -22,21 +23,35 @@ export default function Home() {
     })();
   }, []);
 
-  return (
-    <div className="page">
-      <div className="topBar">
-        <h2 className="hTitle" style={{ margin: 0 }}>All posts</h2>
+  // ✅ search filter (title/description/category/author)
+  const filteredPosts = useMemo(() => {
+    const s = search.trim().toLowerCase();
+    if (!s) return posts;
 
-        <Link className="btnCreate" to="/create">
-          + Create post
-        </Link>
-      </div>
+    return posts.filter((p) => {
+      const hay = [
+        p.title,
+        p.description,
+        p.category,
+        p.authorName,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return hay.includes(s);
+    });
+  }, [posts, search]);
+
+  return (
+    <div className="container">
+      <HeroHeader search={search} setSearch={setSearch} />
 
       <div className="postsGrid">
-  {posts.map((p) => (
-    <PostItem key={p.id} post={p} />
-  ))}
-</div>
+        {filteredPosts.map((p) => (
+          <PostItem key={p.id} post={p} />
+        ))}
+      </div>
     </div>
   );
 }
