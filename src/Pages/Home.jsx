@@ -10,18 +10,18 @@ export default function Home() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    (async () => {
-      await ensureAuth();
+  let unsub = () => {};
 
-      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-      const unsub = onSnapshot(q, (snapshot) => {
-        const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setPosts(data);
-      });
+  ensureAuth().then(() => {
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    unsub = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setPosts(data);
+    });
+  });
 
-      return () => unsub();
-    })();
-  }, []);
+  return () => unsub();
+}, []);
 
   // ✅ search filter (title/description/category/author)
   const filteredPosts = useMemo(() => {

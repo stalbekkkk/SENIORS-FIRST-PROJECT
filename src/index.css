@@ -314,3 +314,23 @@ body {
   padding: 12px;
   background: #fafaff;
 }
+
+.postAuthor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.authorAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.authorName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #101828;
+}
